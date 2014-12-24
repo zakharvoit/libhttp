@@ -10,6 +10,7 @@ set(SOURCES	include/http/impl/parser.hh
 		include/http/impl/request_sender.hh
 		include/http/callbacks.hh
 		include/http/client.hh
+		include/http/server.hh
 		include/http/main_loop.hh
 		include/http/request.hh
 		include/http/response.hh
@@ -18,6 +19,7 @@ set(SOURCES	include/http/impl/parser.hh
 		src/http/impl/parser.cc
 		src/http/impl/request_sender.cc
 		src/http/client.cc
+		src/http/server.cc
 		src/http/main_loop.cc
 		src/http/response.cc
 		src/http/request.cc)
@@ -26,6 +28,8 @@ set(SOURCES	include/http/impl/parser.hh
 add_subdirectory(libtcp)
 add_library(${PROJECT_NAME} SHARED ${SOURCES})
 target_link_libraries(${PROJECT_NAME} tcp)
+add_executable(http_server src/example/http_server.cc)
+target_link_libraries(http_server http)
 
 find_package(GTest)
 
