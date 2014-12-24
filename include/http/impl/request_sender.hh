@@ -9,24 +9,24 @@
 
 namespace http
 {
-    namespace impl
-    {
-	struct request_sender
+	namespace impl
 	{
-	    request_sender(request const&,
-			   tcp::util::address const&,
-			   on_response_cb const&);
+		struct request_sender
+		{
+			request_sender(request const&,
+			               tcp::util::address const&,
+			               on_response_cb const&);
 
-	private:
-	    void on_connect(request const&);
-	    void on_wrote();
-	    void on_read(tcp::util::maybe <tcp::util::buffer>&&);
+		private:
+			void on_connect(request const&);
+			void on_wrote();
+			void on_read(tcp::util::maybe <tcp::util::buffer>&&);
 	    
-	    response::builder builder;
-	    on_response_cb on_response;
-	    tcp::async::client client;
-	};
-    }
+			tcp::async::client client;
+			on_response_cb on_response;
+			response::builder builder;
+		};
+	}
 }
 
 #endif

@@ -5,10 +5,10 @@
 
 namespace http
 {
-    struct uri
-    {
-	std::string uri_path;
-    };
+	struct uri
+	{
+		std::string uri_path;
+	};
 }
 
 #endif
