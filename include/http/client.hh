@@ -3,7 +3,6 @@
 
 #include "http/request.hh"
 #include "http/callbacks.hh"
-#include "http/uri.hh"
 #include "http/impl/request_sender.hh"
 
 #include <tcp/tcp.hh>

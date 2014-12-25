@@ -12,7 +12,7 @@ int main()
 	server s("127.0.0.1", [&](auto r, auto peer)
 	         {
 		         peer.send(response::builder()
-		                   .set_text("You are " + to_string(count) + " visitor.")
+		                   .set_text("You are " + to_string(++count) + " visitor.")
 		                   .create());
 	         }, 33334);
 

@@ -1,7 +1,6 @@
 #ifndef HTTP_REQUEST_HH
 #define HTTP_REQUEST_HH
 
-#include "http/uri.hh"
 #include "http/impl/parser.hh"
 
 #include <tcp/tcp.hh>
@@ -21,6 +20,10 @@ namespace http
 		struct builder
 		{
 			builder& append(tcp::util::buffer const&);
+			builder& set_method(method);
+			builder& set_uri(std::string const&);
+			builder& add_header(std::string const& key,
+			                    std::string const& value);
 			request create();
 
 			bool finished() const
@@ -38,20 +41,15 @@ namespace http
 		};
 
 		request() = default;
-		request(method const& m, http::uri const& u)
-			: method(m), uri(u) {}
-
-		// TODO: Think a little about interface
-		method get_method() const
-		{
-			return method;
-		}
+		request(method const& m, std::string const& uri)
+			: method(m), uri(uri) {}
 
 		tcp::util::buffer to_buffer() const;
 
 	private:
 		method method;
-		http::uri uri;
+		std::vector <std::pair <std::string, std::string>> headers;
+		std::string uri;
 	};
 }
 

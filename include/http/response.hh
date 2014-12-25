@@ -58,6 +58,11 @@ namespace http
 			return body;
 		}
 
+		std::string as_string() const
+		{
+			return std::string(body.begin(), body.end());
+		}
+
 		tcp::async::buffer to_buffer() const;
 
 	private:
