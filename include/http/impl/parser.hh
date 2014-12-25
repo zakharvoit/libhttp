@@ -33,7 +33,7 @@ namespace http
 				int status = 0;
 				std::string status_description;
 				std::vector <http_header_s> headers;
-				char* body = nullptr;
+				std::vector <char> body;
 				size_t body_length = 0;
 
 				bool operator==(http_response_s const&) const;

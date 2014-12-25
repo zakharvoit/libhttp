@@ -9,10 +9,26 @@ namespace http
 {
 	struct response
 	{
+		static const std::string DEFAULT_VERSION;
+
+		enum status
+		{
+			OK = 200,
+			NOT_FOUND = 404
+		};
+
 		struct builder
 		{
 			builder& append(tcp::util::buffer const&);
 			response create();
+
+			builder& set_version(std::string const&);
+			builder& set_status(status);
+			builder& set_comment(std::string const&);
+			builder& add_header(std::string const& key,
+			                    std::string const& value);
+			builder& set_text(std::vector <char> const& chars);
+			builder& set_text(std::string const& s);
 
 			bool finished() const
 			{
@@ -20,7 +36,11 @@ namespace http
 			};
 
 		private:
-			impl::parser::http_response_s repr;
+			impl::parser::http_response_s repr = {
+				.version = DEFAULT_VERSION,
+				.status = OK,
+				.status_description = "OK"
+			};
 			impl::parser::parser parse =
 				impl::parser::http_response(repr);
 			bool is_finished = false;
@@ -28,12 +48,6 @@ namespace http
 			friend response;
 		};
 	
-		enum status
-		{
-			OK = 200,
-			NOT_FOUND = 404
-		};
-
 		status get_status() const
 		{
 			return status;
@@ -48,6 +62,7 @@ namespace http
 
 	private:
 		status status;
+		std::string comment;
 		std::vector <std::pair <std::string, std::string> > headers;
 		std::vector <char> body;
 	};

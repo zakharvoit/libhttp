@@ -27,7 +27,7 @@ namespace http
 					&& status_description == r.status_description
 					&& headers == r.headers
 					&& body_length == r.body_length
-					&& strncmp(body, r.body, body_length) == 0;
+					&& body == r.body;
 			}
 
 			bool http_request_s::operator==(http_request_s const& r) const
@@ -180,13 +180,13 @@ namespace http
 				};
 			}
 
-			parser http_body(char*& body, size_t& length)
+			parser http_body(vector <char>& body, size_t& length)
 			{
 				bool start = true;
 				size_t already_read = 0;
 				return P(buf, =, &body, &length) {
 					if (start) {
-						body = new char[length];
+						body.resize(length);
 						start = false;
 					}
 					size_t to_read = min(buf.rest_length(), length - already_read);

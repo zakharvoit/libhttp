@@ -68,6 +68,7 @@ TEST(parser, headers)
 
 TEST(parser, http_response)
 {
+	string hw = "Hello World!\n";
 	buffer response = "HTTP/1.1 200 OK\r\nContent-Length: 13\r\n\r\n"s
 		+ "Hello World!\n"s;
 	http_response_s result;
@@ -80,7 +81,7 @@ TEST(parser, http_response)
 				"Content-Length", "13"
 			}
 		},
-		.body = (char*) "Hello World!\n",
+		.body = vector <char>(hw.begin(), hw.end()),
 		.body_length = 13
 	};
 	auto p = http_response(result);

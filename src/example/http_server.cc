@@ -8,15 +8,12 @@ using namespace http;
 
 int main()
 {
+	size_t count = 0;
 	server s("127.0.0.1", [&](auto r, auto peer)
 	         {
-		         auto b = r.to_buffer();
-		         while (b.rest_length()) {
-			         cout << **b;
-			         b += 1;
-		         }
-		         response resp;
-		         peer.send(resp);
+		         peer.send(response::builder()
+		                   .set_text("You are " + to_string(count) + " visitor.")
+		                   .create());
 	         }, 33334);
 
 	main_loop::start();
