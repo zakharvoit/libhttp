@@ -3,6 +3,8 @@
 
 #include <tcp/tcp.hh>
 
+#include <iostream>
+
 using namespace tcp;
 using namespace http;
 using namespace std;
@@ -10,6 +12,11 @@ using namespace std;
 request::builder& request::builder::append(util::buffer const& buf)
 {
 	util::buffer b_copy(buf);
+	cerr <<" agrau " << endl;
+	for (int i = 0; i < (int) buf.rest_length(); i++) {
+		cerr << *((*buf) + i);
+	}
+	cerr << endl;
 	is_finished = parse(b_copy);
 	return *this;
 }

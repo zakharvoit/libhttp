@@ -3,10 +3,13 @@
 
 #include "http/callbacks.hh"
 #include "http/request.hh"
+#include "http/impl/request_receiver.hh"
 
 #include <tcp/tcp.hh>
 
 #include <string>
+#include <set>
+#include <functional>
 
 namespace http
 {
@@ -20,13 +23,11 @@ namespace http
 
 	private:
 		void on_accept(tcp::util::maybe<tcp::async::client>&&);
-		void on_read_some(tcp::util::maybe<tcp::util::buffer>&&);
 
 		tcp::async::server tcp_server;
-		tcp::async::client tcp_client;
 		on_request_cb on_request;
-		request::builder builder;
 		tcp::util::canceller listening;
+		std::set <request_receiver> receivers;
 	};
 }
 

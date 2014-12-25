@@ -8,6 +8,7 @@ include_directories(libtcp/include)
 include_directories(include)
 set(SOURCES	include/http/impl/parser.hh
 		include/http/impl/request_sender.hh
+		include/http/impl/request_receiver.hh
 		include/http/callbacks.hh
 		include/http/client.hh
 		include/http/server.hh
@@ -18,6 +19,7 @@ set(SOURCES	include/http/impl/parser.hh
 
 		src/http/impl/parser.cc
 		src/http/impl/request_sender.cc
+		src/http/impl/request_receiver.cc
 		src/http/client.cc
 		src/http/server.cc
 		src/http/peer.cc

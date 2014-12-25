@@ -11,13 +11,13 @@ namespace http
 {
 	struct peer
 	{
-		peer(tcp::async::client&);
+		peer(tcp::async::client&&);
 
 		void send(http::response const&, // TODO: Pass maybe as arg
 		          std::function<void()> const& callback = [](){});
 		     
 	private:
-		tcp::async::client& tcp_client;
+		tcp::async::client tcp_client;
 	};
 }
 
