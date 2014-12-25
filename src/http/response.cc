@@ -1,5 +1,6 @@
 #include "http/response.hh"
 
+using namespace std;
 using namespace http;
 using tcp::util::buffer;
 
@@ -22,6 +23,18 @@ response response::builder::create()
 		result.headers[i] = make_pair(repr.headers[i].key,
 		                              repr.headers[i].value);
 	}
+
+	return result;
+}
+
+// TODO: Rewrite this method completely
+buffer response::to_buffer() const
+{
+	string result;
+	result += "HTTP/1.1 ";
+	result += to_string(status) + " ";
+	result += "No comment\n";
+	result += "Content-Length: 0\n\n";
 
 	return result;
 }

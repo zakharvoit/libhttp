@@ -31,7 +31,7 @@ void server::on_read_some(util::maybe<util::buffer>&& bm)
 	bm.raise(); // TODO: Handle errors better
 	builder.append(bm.get());
 	if (builder.finished()) {
-		on_request(builder.create());
+		on_request(builder.create(), peer(tcp_client));
 		// TODO: Here we should clear builder, also check client.cc code
 	} else {
 		tcp_client.read_some(main_loop::get_service(), [=](auto arg)

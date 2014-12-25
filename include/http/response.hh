@@ -44,6 +44,8 @@ namespace http
 			return body;
 		}
 
+		tcp::async::buffer to_buffer() const;
+
 	private:
 		status status;
 		std::vector <std::pair <std::string, std::string> > headers;

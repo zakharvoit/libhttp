@@ -14,12 +14,14 @@ set(SOURCES	include/http/impl/parser.hh
 		include/http/main_loop.hh
 		include/http/request.hh
 		include/http/response.hh
+		include/http/peer.hh
 		include/http/uri.hh
 
 		src/http/impl/parser.cc
 		src/http/impl/request_sender.cc
 		src/http/client.cc
 		src/http/server.cc
+		src/http/peer.cc
 		src/http/main_loop.cc
 		src/http/response.cc
 		src/http/request.cc)
