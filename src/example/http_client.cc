@@ -19,7 +19,11 @@ int main()
 		          main_loop::stop();
 	          });
 	
-	main_loop::start();
+	try {
+		main_loop::start();
+	} catch (exception const& e) {
+		cerr << e.what() << endl;
+	}
 
 	return 0;
 }

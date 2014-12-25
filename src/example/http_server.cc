@@ -15,8 +15,12 @@ int main()
 		                   .set_text("You are " + to_string(++count) + " visitor.")
 		                   .create());
 	         }, 33334);
-
-	main_loop::start();
+	
+	try {
+		main_loop::start();
+	} catch (exception const& e) {
+		cerr << e.what() << endl;
+	}
 
 	return 0;
 }
