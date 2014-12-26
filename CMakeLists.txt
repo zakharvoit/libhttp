@@ -16,6 +16,7 @@ set(SOURCES	include/http/impl/parser.hh
 		include/http/request.hh
 		include/http/response.hh
 		include/http/peer.hh
+		include/http/http.hh
 
 		src/http/impl/parser.cc
 		src/http/impl/request_sender.cc
