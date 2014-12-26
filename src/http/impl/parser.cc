@@ -219,7 +219,6 @@ namespace http
 
 			parser http_request(http_request_s& request)
 			{
-				static size_t ignored_size;
 				function<string(string)> trim_back = [](string s) {
 					int end = (int) s.length() - 1;
 					while (end >= 0 && isspace(s[end])) --end;
@@ -231,7 +230,8 @@ namespace http
 					>> character <' '>()
 					>> fmap(trim_back,
 					        function<parser(string&)>(until_endl))(request.version)
-					>> http_headers(request.headers, ignored_size);
+					>> http_headers(request.headers, request.body_length)
+					>> http_body(request.body, request.body_length);
 			}
 		}
 	}

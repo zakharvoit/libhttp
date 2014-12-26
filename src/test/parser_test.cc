@@ -92,7 +92,10 @@ TEST(parser, http_response)
 TEST(parser, http_request)
 {
 	buffer request = "GET /index.html HTTP/1.1\r\n"s
-		+ "Host: example.org\r\n\r\n";
+		+ "Host: example.org\r\n"
+		+ "Content-Length: 5\r\n"
+		+ "\r\n"
+		+ "Hello";
 	http_request_s result;
 	http_request_s expected = {
 		.method = "GET",
@@ -101,8 +104,12 @@ TEST(parser, http_request)
 		.headers = {
 			{
 				"Host", "example.org"
+			},
+			{
+				"Content-Length", "5"
 			}
-		}
+		},
+		.body = {'H', 'e', 'l', 'l', 'o'}
 	};
 	auto p = http_request(result);
 	ASSERT_TRUE(p(request));

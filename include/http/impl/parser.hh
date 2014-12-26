@@ -45,6 +45,8 @@ namespace http
 				std::string uri;
 				std::string version;
 				std::vector <http_header_s> headers;
+				std::vector <char> body;
+				size_t body_length = 0;
 
 				bool operator==(http_request_s const&) const;
 			};

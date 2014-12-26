@@ -24,6 +24,7 @@ namespace http
 			builder& set_uri(std::string const&);
 			builder& add_header(std::string const& key,
 			                    std::string const& value);
+			builder& set_text(std::vector <char> const& body);
 			request create();
 
 			bool finished() const
@@ -46,10 +47,36 @@ namespace http
 
 		tcp::util::buffer to_buffer() const;
 
+		method get_method() const
+		{
+			return method;
+		}
+
+		auto get_headers() const
+		{
+			return headers;
+		}
+
+		auto get_uri() const
+		{
+			return uri;
+		}
+
+		auto get_text() const
+		{
+			return body;
+		}
+
+		auto get_text_as_string() const
+		{
+			return std::string(body.begin(), body.end());
+		}
+
 	private:
 		method method;
 		std::vector <std::pair <std::string, std::string>> headers;
 		std::string uri;
+		std::vector <char> body;
 	};
 }
 

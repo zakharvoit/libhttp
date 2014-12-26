@@ -54,17 +54,24 @@ response::builder& response::builder::add_header(
 	return *this;
 }
 
-response::builder& response::builder::set_text(
-	vector <char> const& chars)
+response::builder& response::builder::set_text(vector <char> const& chars)
 {
 	repr.body = chars;
 	return *this;
 }
 
-response::builder& response::builder::set_text(
-	string const& s)
+response::builder& response::builder::set_text(string const& s)
 {
 	repr.body = vector <char>(s.begin(), s.end());
+	return *this;
+}
+
+response::builder& response::builder::append_text(string const& s)
+{
+	for (char c : s) {
+		repr.body.push_back(c);
+	}
+
 	return *this;
 }
 

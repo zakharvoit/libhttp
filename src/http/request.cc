@@ -49,6 +49,13 @@ request::builder& request::builder::add_header(string const& key,
 	return *this;
 }
 
+request::builder& request::builder::set_text(vector <char> const& text)
+{
+	repr.body = text;
+
+	return *this;
+}
+
 request request::builder::create()
 {
 	request result;
@@ -60,6 +67,7 @@ request request::builder::create()
 		                              repr.headers[i].value);
 	}
 
+	result.body = repr.body;
 	return result;
 }
 
@@ -71,12 +79,18 @@ util::buffer request::to_buffer() const
 	result += response::DEFAULT_VERSION + "\n";
 
 	bool has_connection = false;
-
+	bool has_length = false;
 	for (auto const& h : headers) {
 		if (h.first == "Connection") {
 			has_connection = true;
 		}
+		if (h.first == "Content-Length") {
+			has_length = true;
+		}
 		result += h.first + ": " + h.second + "\n";
+	}
+	if (!has_length) {
+		result += "Content-Length: " + to_string(body.size()) + "\n";
 	}
 	if (!has_connection) {
 		result += "Connection: close\n";

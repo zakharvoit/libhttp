@@ -29,6 +29,7 @@ namespace http
 			                    std::string const& value);
 			builder& set_text(std::vector <char> const& chars);
 			builder& set_text(std::string const& s);
+			builder& append_text(std::string const& s);
 
 			bool finished() const
 			{
