@@ -23,10 +23,10 @@ void server::on_accept(util::maybe<async::client>&& cm)
 {
 	cm.raise(); // TODO: Handle errors better
 	receivers.emplace(std::move(cm.get()),
-	                      on_request,
-	                      [=](int id)
-	                      {
-		                      receivers.erase({id});
-	                      }
+	                  on_request,
+	                  [=](int id)
+	                  {
+		                  receivers.erase({id});
+	                  }
 		);
 }

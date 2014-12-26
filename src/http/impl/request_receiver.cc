@@ -33,7 +33,6 @@ void request_receiver::on_read_some(util::maybe<util::buffer>&& bm)
 	bm.raise(); // TODO: Handle errors better
 	builder.append(bm.get());
 	if (builder.finished()) {
-		cerr << client.get_fd() << endl;
 		on_request(builder.create(), peer(std::move(client)));
 		on_finish(id);
 	} else {
