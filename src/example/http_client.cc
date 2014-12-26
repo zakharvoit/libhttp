@@ -13,9 +13,10 @@ int main()
 	          .set_method(request::GET)
 	          .set_uri("/")
 	          .create(),
-	          [&](response r)
+	          [&](auto r)
 	          {
-		          cout << r.as_string();
+		          r.raise();
+		          cout << r.get().as_string();
 		          main_loop::stop();
 	          });
 	

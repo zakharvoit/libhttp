@@ -10,9 +10,10 @@ int main()
 {
 	try {
 		size_t count = 0;
-		server s("127.0.0.1", [&](auto r, auto peer)
+		server s("127.0.0.1", [&](auto peer)
 		         {
-			         peer.send(response::builder()
+			         peer.raise();
+			         peer.get().send(response::builder()
 			                   .set_text("You are " + to_string(++count) + " visitor.")
 			                   .create());
 		         }, 33334);

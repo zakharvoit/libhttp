@@ -14,6 +14,10 @@ client::client(string const& hostname, uint16_t port)
 void client::request(http::request const& req,
 		     on_response_cb on_response)
 {
+	// TODO: Remove this, when feature will be implemented
+	if (has_sender) {
+		throw runtime_error("Client already has sender (Now simultanious senders are not implemented).");
+	}
 	// HACK: Placement new used because of possible glibcxx bug
 	// in string move operator, this method should be called only once
 	// or some leaks will be possible
@@ -23,6 +27,7 @@ void client::request(http::request const& req,
 
 client::~client()
 {
+	// TODO: Look in the client::request, the same problem should be here
 	if (has_sender) {
 		sender.~request_sender();
 	}
