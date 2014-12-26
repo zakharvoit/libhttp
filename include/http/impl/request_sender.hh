@@ -18,7 +18,7 @@ namespace http
 			               on_response_cb const&);
 
 		private:
-			void on_connect(request const&);
+			void on_connect(tcp::util::maybe<request> const&);
 			void on_wrote();
 			void on_read(tcp::util::maybe <tcp::util::buffer>&&);
 	    

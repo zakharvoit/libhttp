@@ -10,7 +10,8 @@ TEST(client, check_google)
 	ASSERT_NO_THROW(
 		client c("173.194.32.166");
 		c.request({request::GET, {"/"}}, [](auto r) {
-				auto m = r.get_body();
+				r.raise();
+				auto m = r.get().get_body();
 				main_loop::stop();
 			});
 		http::main_loop::start();

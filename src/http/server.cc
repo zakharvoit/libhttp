@@ -21,12 +21,15 @@ server::server(string const& addr,
 
 void server::on_accept(util::maybe<async::client>&& cm)
 {
-	cm.raise(); // TODO: Handle errors better
+	if (!cm) {
+		on_request(cm.get_error());
+		return;
+	}
 	receivers.emplace(std::move(cm.get()),
-	                      on_request,
-	                      [=](int id)
-	                      {
-		                      receivers.erase({id});
-	                      }
+	                  on_request,
+	                  [=](int id)
+	                  {
+		                  receivers.erase({id});
+	                  }
 		);
 }

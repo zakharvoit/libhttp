@@ -83,7 +83,6 @@ response response::builder::create()
 	return result;
 }
 
-// TODO: Rewrite this method completely
 buffer response::to_buffer() const
 {
 	string result;

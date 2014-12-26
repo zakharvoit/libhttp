@@ -8,15 +8,16 @@ using namespace http;
 
 int main()
 {
-	size_t count = 0;
-	server s("127.0.0.1", [&](auto r, auto peer)
-	         {
-		         peer.send(response::builder()
-		                   .set_text("You are " + to_string(++count) + " visitor.")
-		                   .create());
-	         }, 33334);
-	
 	try {
+		size_t count = 0;
+		server s("127.0.0.1", [&](auto peer)
+		         {
+			         peer.raise();
+			         peer.get().send(response::builder()
+			                   .set_text("You are " + to_string(++count) + " visitor.")
+			                   .create());
+		         }, 33334);
+		
 		main_loop::start();
 	} catch (exception const& e) {
 		cerr << e.what() << endl;
