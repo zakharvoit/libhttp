@@ -15,7 +15,7 @@ namespace http
 		peer(tcp::async::client&&,
 		     http::request const& request);
 
-		void send(http::response const&, // TODO: Pass maybe as arg
+		void send(http::response const&,
 		          std::function<void(tcp::util::maybe<tcp::util::nothing>)> const& callback = [](auto){});
 
 		http::request get_request() const
