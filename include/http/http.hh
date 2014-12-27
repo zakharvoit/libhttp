@@ -8,8 +8,10 @@
 namespace http
 {
 	// Import maybe in our namespace
-	template <typename T>
-	using maybe = tcp::util::maybe<T>;
+
+	using tcp::util::maybe;
+	using tcp::util::nothing;
+	using tcp::util::buffer;
 }
 
 #endif
